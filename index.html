@@ -49,7 +49,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .stage{position:relative;flex:1;min-height:clamp(170px,19vw,300px)}
 .stage .stk{left:12%;top:8%;width:74%}
 .stage-hint{position:absolute;right:0;top:0;color:var(--mid)}
-.stk{position:absolute;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;background:none;border:0;padding:0;transition:transform .25s cubic-bezier(.3,1.6,.5,1),filter .2s;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25));z-index:5}
+.stk{position:absolute;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;background:none;border:0;padding:0;transition:transform .25s cubic-bezier(.3,1.6,.5,1),filter .2s;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25));z-index:5;will-change:transform}
 .stk img{pointer-events:none;width:100%;height:auto;animation:idle 5s ease-in-out infinite}
 .stk:nth-child(odd) img{animation-duration:6.5s;animation-direction:reverse}
 .stk:hover{transform:rotate(var(--r,0deg)) scale(1.06)}
