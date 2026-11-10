@@ -197,8 +197,8 @@ footer{background:var(--ink);color:var(--paper);margin-top:0}
 @media (max-width:860px){
   .hero h1{grid-column:1/-1}.hero-side{grid-column:1/-1}
   /* titolo a tutta larghezza, sotto testo a sinistra e sticker a destra in un box fisso (le immagini hanno proporzioni diverse) */
-  .row{row-gap:12px}.row .n{display:none}.row .tt{grid-column:1/-1}.row .bl{grid-column:1/8;grid-row:2}.row .go{grid-column:1/8;grid-row:3;justify-self:start}
-  .row .peek{position:static;grid-column:8/-1;grid-row:2/4;width:100%;height:140px;object-fit:contain;transform:rotate(-6deg) scale(1)}
+  .row{row-gap:12px;grid-template-columns:1fr 40%}.row .n{display:none}.row .tt{grid-column:1/-1}.row .bl{grid-column:1;grid-row:2}.row .go{grid-column:1;grid-row:3;justify-self:start}
+  .row .peek{position:static;grid-column:2;grid-row:2/4;width:100%;height:180px;object-fit:contain;transform:rotate(-6deg) scale(1)}
   .ph-tag,.ph-lead{grid-column:1/-1}.ph-masc{right:4px;top:auto;bottom:-16px;width:78px}.ph-tag{padding-right:84px}
   .facts{grid-template-columns:repeat(2,1fr)}.facts div{padding-left:0;border-right:0;border-bottom:1px solid var(--ink)}
   .blk h2,.blk .tx{grid-column:1/-1}
