@@ -207,7 +207,9 @@ footer{background:var(--ink);color:var(--paper);margin-top:0}
   .ct-m{grid-column:3/11}.ct-tx{grid-column:1/-1}
   .ft div{grid-column:span 6}
   .steps li{border-right:0;border-bottom:2px solid var(--ink);min-height:90px}
-  .stage{min-height:200px}.stage .stk{width:54%;left:20%}
+  /* cane accanto al nome: hero-side si scioglie nella griglia dell'hero */
+  .hero-side{display:contents}.hero h1{grid-row:2}.tagbox,.hero-lead{grid-column:1/-1}
+  .stage{grid-column:7/-1;grid-row:2;min-height:0}.stage .stk{width:100%;left:auto;right:0;top:auto;bottom:0}.stage-hint{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
