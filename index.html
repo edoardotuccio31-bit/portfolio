@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Edoardo Tuccio — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --red:#E10600; --red2:#FF5A4D; --ink:#141414; --grey:#2B2B2B; --mid:#8A8782; --paper:#F3F0EA; --white:#FFFFFF;
@@ -43,6 +43,19 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hero-meta{grid-column:1/-1;display:flex;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:8px}
 .hero h1{grid-column:1/8;margin:0;font-size:clamp(76px,17.5vw,280px)}
 .hero h1 span{display:block}
+.type{font-family:'Special Elite','Courier New',monospace;font-weight:400;letter-spacing:-.02em;line-height:1;font-size:clamp(44px,11vw,172px);text-transform:uppercase}
+.type .ln{display:block;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){
+  html,body{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='36' viewBox='0 0 34 36'><path d='M4 2 L4 30 L11.5 22.5 L16 33 L21.5 30.5 L17 20.5 L27 20.5 Z' fill='%23E10600' stroke='%23141414' stroke-width='2.2' stroke-linejoin='round'/></svg>") 4 2, auto}
+  a,button,summary,[role=button]{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='42' viewBox='0 0 34 42'><g fill='%23E10600' stroke='%23141414' stroke-width='2.2' stroke-linejoin='round' stroke-linecap='round'><rect x='13' y='3' width='9' height='21' rx='4.5'/><path d='M6 24 a4 4 0 0 1 8 0 v2 h-8 z'/><path d='M21 24 a4 4 0 0 1 8 0 v2 h-8 z'/><rect x='5' y='24' width='24' height='15' rx='6'/><path d='M5 29 a3.5 3.5 0 0 0 -3.5 3.5 a3.5 3.5 0 0 0 3.5 3.5 z'/></g></svg>") 17 4, pointer}
+  input,textarea{cursor:text}
+}
+.type .ch{display:inline-block;opacity:0;transform:translateY(var(--dy,0px)) rotate(var(--rot,0deg));animation:strike .14s steps(2) forwards;animation-delay:calc(var(--i) * 78ms)}
+.type .cur{display:inline-block;width:.07em;height:.72em;background:var(--red);vertical-align:-.03em;margin-left:.06em;animation:blink .62s steps(1) infinite}
+.type.done .cur{animation:blink .62s steps(1) 5}
+@keyframes strike{0%{opacity:0;transform:translateY(calc(var(--dy,0px) - 7px)) rotate(var(--rot,0deg)) scale(1.09)}60%{opacity:1;transform:translateY(calc(var(--dy,0px) + 2px)) rotate(var(--rot,0deg)) scale(.99)}100%{opacity:1;transform:translateY(var(--dy,0px)) rotate(var(--rot,0deg)) scale(1)}}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.type .ch{opacity:1;animation:none}.type .cur{display:none}}
 .hero-side{grid-column:8/-1;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;gap:16px;padding-bottom:10px}
 .tagbox{background:var(--red);color:var(--ink);padding:14px 16px;font-family:var(--disp);text-transform:uppercase;font-size:clamp(24px,3.4vw,50px);line-height:.95}
 .hero-lead{font-family:var(--mono);font-size:clamp(12px,1.05vw,15px);text-transform:uppercase;letter-spacing:.06em;line-height:1.55;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:12px 0;margin:0}
@@ -415,10 +428,19 @@ function rows(){
 }
 function marquee(txt,cls=''){const s=`<span>${esc(txt)} ///</span>`.repeat(8);return `<div class="mq ${cls}" aria-hidden="true"><div>${s}${s}</div></div>`}
 
+function typeTitle(){
+  let i=0;
+  const line=w=>`<span class="ln">${[...w].map(c=>{
+    const dy=(Math.random()*5-2.5).toFixed(1), rot=(Math.random()*3.4-1.7).toFixed(1);
+    return `<span class="ch" style="--i:${i++};--dy:${dy}px;--rot:${rot}deg" aria-hidden="true">${c}</span>`;
+  }).join('')}</span>`;
+  i++; const a=line('Edoardo'); i+=2; const b=line('Tuccio');
+  return a+b.replace(/<\/span>$/,'<span class="cur" aria-hidden="true"></span></span>');
+}
 function home(){
   return `<section class="hero">
     <div class="hero-meta mono"><span>00 / ${t('portfolio')}</span><span>${t('year')}</span></div>
-    <h1 class="disp"><span>Edoardo</span><span>Tuccio</span></h1>
+    <h1 class="type" aria-label="Edoardo Tuccio">${typeTitle()}</h1>
     <div class="hero-side">
       <div class="stage">
         <span class="stage-hint mono">${esc(t('hint'))} ↙</span>
@@ -562,6 +584,8 @@ function render(keepScroll){
   const html=p?project(p):h==='work'?work():h==='about'?about():h==='contact'?contact():home();
   $('#app').innerHTML=`<div class="view">${html}</div>`;
   nav(p?'work':h);footer();stickers();
+  const ttl=document.querySelector('.type');
+  if(ttl){const n=ttl.querySelectorAll('.ch').length;setTimeout(()=>ttl.classList.add('done'),n*78+900);}
   const c=$('#copy');
   if(c)c.addEventListener('click',()=>{const done=()=>{c.textContent=t('copied');setTimeout(()=>c.textContent=t('copy'),1600)};
     try{navigator.clipboard.writeText(EMAIL).then(done,()=>{})}catch(e){}});
